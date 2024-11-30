@@ -1,0 +1,38 @@
+
+{% extends "customer_service/base.html" %}
+{% block title %}Request Status{% endblock %}
+{% block content %}
+<h2>Your Service Requests</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Request Type</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Details</th>
+            <th>Attachment</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in requests %}
+        <tr>
+            <td>{{ request.request_type }}</td>
+            <td>{{ request.status }}</td>
+            <td>{{ request.created_at }}</td>
+            <td>{{ request.details }}</td>
+            <td>
+                {% if request.attachment %}
+                    <a href="{{ request.attachment.url }}" target="_blank">View Attachment</a>
+                {% else %}
+                    No Attachment
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No service requests found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

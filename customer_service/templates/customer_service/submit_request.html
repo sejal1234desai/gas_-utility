@@ -1,0 +1,38 @@
+{% extends 'customer_service/base.html' %}
+{% load static %}
+{% block title %}Submit Service Request{% endblock %}
+
+{% block content %}
+<h1>Submit Service Request</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="request_type" class="form-label">Request Type</label>
+        <select id="request_type" name="request_type" class="form-select" required>
+            <option value="" disabled selected>Select a service request</option>
+            <option value="New Connection">New Connection</option>
+            <option value="Bill Inquiry">Bill Inquiry</option>
+            <option value="Gas Leak">Gas Leak</option>
+            <option value="Service Disruption">Service Disruption</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" name="description" class="form-control" rows="4" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="attachment" class="form-label">Attach Files (Optional)</label>
+        <input type="file" id="attachment" name="attachment" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Request</button>
+</form>
+
+{% if success_message %}
+    <div class="alert alert-success mt-3">{{ success_message }}</div>
+{% endif %}
+
+<!-- Link to request status page -->
+<a href="{% url 'request_status' %}" class="btn btn-link">Track Your Requests</a>
+{% endblock %}
+
